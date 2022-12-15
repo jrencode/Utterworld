@@ -1,0 +1,12 @@
+.blog-details-container {
+    width: 90vw;
+    max-width: 1720px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+.blog-details-container img {
+    border-radius: 5px;
+}
+.blog-title {
+    font-weight: bold;
+}

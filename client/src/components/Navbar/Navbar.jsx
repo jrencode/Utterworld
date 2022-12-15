@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import './Navbar.css'
 
 const Navbar = () => {
 
+   const brand = 'UTTERWORLD'
    const [menu, setMenu] = useState(false);
 
    const handleMenu = () => {
@@ -14,14 +16,30 @@ const Navbar = () => {
    return (
       <div className='navbar'>
          <div className='nav-container'>
-            <h1 className='brand'>UTTER</h1>
+            <div className='nav-left'>
+               <h1 className='brand'
+                  component={Link}
+                  to="/">
+                  <Link to="/">{brand} </Link>
+               </h1>
+               <div id="searchBar">
+                  <form method="get" action="">
+                        <input className='search' type="text" placeholder='Search' />
+                  </form>
+               </div>
+            </div>
+            
             <ul className={menu ? 'nav-list active' : 'nav-list'}>
-               <li className='p-4'>Home</li>
+               <li className='p-4'>
+                  <Link to="/">Home</Link>
+               </li>
                <li className='p-4'>About</li>
                <li className='p-4'>Contact</li>
                <li className='p-4'>Notification</li>
                <li className='p-4'>Updates</li>
-               <li className='p-4'>Login</li>
+               <li className='p-4'>
+                  <Link to="/auth">Login</Link>
+               </li> 
             </ul>
             <div className='menubar' onClick={handleMenu}>
                <div className={menu ? 'line lineOne active' : 'line lineOne'} ></div>
