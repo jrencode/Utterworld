@@ -24,7 +24,7 @@
 .blogs-container:last-child {
     margin-bottom: 2rem;
 }
-.blog-card {
+.blogs .blog-card {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -36,22 +36,43 @@
     border-radius: 5px;
 }
 .blog-img {
+    position: relative;
+    flex: 1 1 20%;
     z-index: 1;
 }
+.blog-img:hover .blog-img-overlay {
+    background-color: #fff;
+} 
+.blog-img .blog-img-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    background-color: #EBEBEB;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .blog-img img {
-    flex: 1 1 30%;
+    width: 100%;
+    min-width: 300px;
     object-fit: cover;
     border-radius: 5px;
-    min-height: 150px;
-    max-height: 150px;
+    height: 150px;
+}
+.blog-img-overlay > * {
+    padding: 5px 10px;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--primary);
 }
 .blog-details {
+    flex: 1 1 70%;
     position: relative;
     display: flex;
     flex-direction: column;
     padding: 0 0.5rem;
 
-    flex: 1 1 65%;
     justify-content: space-between;
     min-height: 150px;
 }
@@ -75,8 +96,7 @@ small {
 .blog-details .blog-details-body {
     color: var(--gray3);
     font-size: var(--blog-details-body);
-    max-height: 100px;
-    background-color:antiquewhite ;
+    max-height: 120px;
     margin-bottom: 1rem;
 }
 .more-button {
@@ -84,9 +104,5 @@ small {
     color: var(--primary);
 }
 .deleteButton {
-    padding: 5px 10px;
-    cursor: pointer;
-    padding: 0;
-    color: var(--primary);
-    font-size: 0.875rem;
+    
 }
