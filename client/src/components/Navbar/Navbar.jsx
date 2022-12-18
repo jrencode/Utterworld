@@ -35,8 +35,9 @@ const Navbar = () => {
                </li>
                <li className='p-4'>About</li>
                <li className='p-4'>Contact</li>
-               <li className='p-4'>Notification</li>
-               <li className='p-4'>Updates</li>
+               <li className='p-4'>
+                  <Link to="/AddStory">AddStory</Link>
+               </li>
                <li className='p-4'>
                   <Link to="/auth">Login</Link>
                </li> 
