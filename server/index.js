@@ -8,6 +8,7 @@ import helmet from 'helment';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url'
+import { register } from './controllers/auth.js'
 
 import postRoutes from './routes/posts.js'
 
@@ -44,6 +45,11 @@ const upload = multer({ storage })
 const CONNECTION_URL = process.env.MONGO_URL
 
 const PORT = process.env.PORT || 5000
+
+/*ROUTES WITH FILES*/
+app.post('/auth/register', upload.single('picture', register))
+
+/* MONGOOSE SETUP */
 
 mongoose
    .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
