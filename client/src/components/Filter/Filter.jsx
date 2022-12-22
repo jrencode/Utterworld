@@ -10,7 +10,7 @@ const Filter = () => {
                 <h5>Random</h5>
             </div>
             <div className="right-filter">
-                <h5>CATEGORY</h5>
+                <h5>Category</h5>
             </div>
         </div>
     </div>

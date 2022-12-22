@@ -14,7 +14,8 @@
    --gray3: #6B6B6B;
    --gray4: #424242;
 
-   --nav-bg: var(--gray4);
+   --nav-bg: var(--white);
+   --nav-font-color: var(--gray4);
 
    --sm-fontsize: 0.75rem;
    --medium-fontsize: 0.875rem;

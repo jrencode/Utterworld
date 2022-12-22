@@ -1,15 +1,26 @@
-import {START_LOADING, CREATE, UPDATE } from '../constants/actionTypes';
+import {START_LOADING, CREATE, UPDATE, FETCH_ALL } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 
-export const createPost = (post, history) => async (dispatch) => {
+export const getPosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPosts();
+    console.log(data);
+
+    dispatch({ type: FETCH_ALL, payload: data })
+
+  } catch (error) {
+    
+  }
+}
+
+export const createPost = (post) => async (dispatch) => {
     try {
       dispatch({ type: START_LOADING });
       const { data } = await api.createPost(post);
   
       dispatch({ type: CREATE, payload: data });
-  
-      history.push(`/posts/${data._id}`);
+
     } catch (error) {
       console.log(error);
     }

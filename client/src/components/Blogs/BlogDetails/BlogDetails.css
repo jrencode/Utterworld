@@ -6,6 +6,7 @@
 }
 .blog-details-container img {
     border-radius: 5px;
+    height: 300px;
 }
 .blog-title {
     font-weight: bold;
