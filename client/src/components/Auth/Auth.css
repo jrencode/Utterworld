@@ -1,0 +1,94 @@
+
+label {
+    text-align: left;
+}
+.auth-container {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-container {
+    display: inline;
+    text-align: center;
+    width: 50vh;
+    height: 60vh;
+
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+    background-color: var(--white);
+}
+
+.sign {
+    color: var(--primary);
+    font-size: 1rem;
+    margin: 2.5rem 1.5rem;
+    text-align: left;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form label {
+    width: 90%;
+    font-size: 0.75rem;
+    padding: 0.5rem 0;
+    text-align: left;
+    color: var(--gray2);
+}
+
+.form input {
+    width: 90%;
+    padding: 0.5rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid var(--gray2);
+    color: var(--gray3)
+}
+.form input:last-of-type {
+    margin-bottom: 2rem;
+}
+.form-button {
+    width: 90%;
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    text-transform: capitalize;
+
+    background-color: var(--primary);
+}
+.form-button button {
+    color: var(--white);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.google-login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.5rem;
+    
+    width: 90%;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    color: var(--white);
+    font-weight: 500;
+    letter-spacing: 1px;
+    background-color: var(--white);
+    color: var(--gray2);
+    border: 1px solid var(--gray1);
+    border-radius: 10px;
+}
+.form-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--primary);
+}
