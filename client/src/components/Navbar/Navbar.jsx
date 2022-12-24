@@ -30,16 +30,16 @@ const Navbar = () => {
             </div>
             
             <ul className={menu ? 'nav-list active' : 'nav-list'}>
-               <li className='p-4'>
-                  <Link to="/">Home</Link>
+               <li className=''>
+                  <Link className='link' to="/">Home</Link>
                </li>
-               <li className='p-4'>About</li>
-               <li className='p-4'>Contact</li>
-               <li className='p-4'>
-                  <Link to="/AddStory">AddStory</Link>
+               <li className=''>About</li>
+               <li className=''>Contact</li>
+               <li className=''>
+                  <Link className='link' to="/AddStory">AddStory</Link>
                </li>
-               <li className='p-4'>
-                  <Link to="/auth">Login</Link>
+               <li className=''>
+                  <Link className='link' to="/auth">Login</Link>
                </li> 
             </ul>
             <div className='menubar' onClick={handleMenu}>

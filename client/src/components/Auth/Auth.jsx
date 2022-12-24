@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {FaGoogle } from "react-icons/fa";
-import {useDispatch} from 'react-redux'
-import {useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 import {signup, signin } from '../../actions/auth'
@@ -11,27 +11,41 @@ import { gapi } from 'gapi-script'
 import './Auth.css';
 
 const Auth = () => {
+  const dispatch = useDispatch();
   const clientId = process.env.clientId;
 
   const initialState = {email: '', password: '', confirmPassword: ''}
   const [form, setForm] = useState(initialState);
-  const [isSignup, setIsSignup] = useState(true);
+  const [isSignup, setIsSignup] = useState(false);
   const location = useLocation()
 
   const history = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(form.password);
+    console.log(isSignup);
     if (isSignup) {
-      dispatchEvent(signup(form, history))
+      checkPassword();
+      dispatch(signup(form, history))
+      console.log(form);
     } else {
-      dispatchEvent(signin(form, history))
+      dispatch(signin(form, history))
     }
   }
+  const checkPassword = () => {
+    if(form.password === form.confirmPassword) {
+      console.log('password matched')
+    } else {
+      console.log('password not matched')
+    }
+  }
+  const switchForm = () => {
+    setIsSignup(!isSignup);
+  }
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+    setForm({...form, [e.target.name]: e.target.value})
   }
   const googleSuccess = () => {
 
@@ -59,14 +73,18 @@ const Auth = () => {
           </div>
           <form className='form' onSubmit={handleSubmit}>
             <label className='form-label'>Username or Email</label>
-            <input name="email" label="Email Address" handleChange={handleChange}/>
+            <input name="email" label="Email Address" onChange={handleChange}/>
             <label className='form-label'>Password</label>
-            <input name="password" label="Password" handleChange={handleChange}/>
-            <label className='form-label'>Confirm Password</label>
-            <input name="password" label="Password" handleChange={handleChange}/>
+            <input name="password" label="Password" onChange={handleChange}/>
+            {isSignup && 
+              <>
+                <label className='form-label'>Confirm Password</label>
+                <input name="confirmPassword" label="Password" onChange={handleChange}/>
+              </>
+            }
 
             <div className="form-button">
-              <button>{isSignup ? 'Sign In' : 'Sign Up'}</button>
+              <button type="submit">{isSignup ? 'Sign Up' : 'Sign In'}</button>
             </div>
             <GoogleLogin
               
@@ -83,8 +101,8 @@ const Auth = () => {
             />
           </form>
 
-          <div className='form-switch'>
-              {isSignup ? 'No Account Yet? Register Here': ''}
+          <div className='form-switch' onClick={switchForm}>
+              {isSignup ? 'Already have an account? Sign in' : 'No Account Yet? Register Here'}
           </div>
         </div>  
         

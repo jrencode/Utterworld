@@ -1,6 +1,6 @@
 .story-form-container {
     width: 50vw;
-    height: 100vh;
+    height: calc(100vh - (var(--navbar-height) + 10vh));
     margin: 0 auto;
 }
 .story-form-container h1 {
@@ -21,18 +21,27 @@
     border-radius: 10px;
     padding: 25px;
 }
+.story-form input[type=text]:focus,textarea:focus {
+    outline: none;
+}
 .story-form label {
-    margin: 1rem 0;
+    margin: 0.1rem 0;
+    font-size: 0.75rem;
+    color: var(--gray2);
 }
 .story-form input {
     border-bottom: 1px solid var(--gray1);
     width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 1rem;
 }
 .story-form textarea {
     width: 100%;
     border: 1px solid var(--gray1);
     border-radius: 10px;
+    padding: 10px;
 }
+.sotr
 .story-form button {
     margin: 2rem 0;
     padding: 10px 25px;

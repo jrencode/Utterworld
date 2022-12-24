@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getPosts } from '../../actions/posts'
 
 import Hero from '../Hero/Hero'
 import Filter from '../Filter/Filter'
 import Blogs from '../Blogs/Blogs'
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
 
   const [blogsList, setBlogsList] = useState(null);
   const [isPending, setIsPending] = useState(true)
@@ -23,28 +28,9 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const abortCont = new AbortController();
 
-    fetch('http://localhost:8000/blogs', {signal: AbortController.signal})
-      .then(res => {
-        if(!res.ok) {
-          console.log('could not fetch the data from the resource')
-        }
-        return res.json()
-      })
-      .then((data) => {
-        setBlogsList(data)
-        setIsPending(false)
-      })
-      .catch(err => {
-        if(err.name === "AbortError") {
-          console.log('fetch aborted')
-        }
-        console.log(err.message)
-      })
-    
-      return () => abortCont.abort();
-
+    dispatch(getPosts());
+    setIsPending(false);
       
   }, [blogsList])
 
@@ -53,7 +39,7 @@ const Home = () => {
         <Hero/>
         <Filter />
         {isPending && <div>Loading...</div>}
-        {blogsList && <Blogs blogsList={blogsList} handleDelete={handleDelete} /> }
+        <Blogs handleDelete={handleDelete} />
     </div>
   )
 }
