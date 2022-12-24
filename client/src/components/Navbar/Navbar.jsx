@@ -31,15 +31,15 @@ const Navbar = () => {
             
             <ul className={menu ? 'nav-list active' : 'nav-list'}>
                <li className=''>
-                  <Link to="/">Home</Link>
+                  <Link className='link' to="/">Home</Link>
                </li>
                <li className=''>About</li>
                <li className=''>Contact</li>
                <li className=''>
-                  <Link to="/AddStory">AddStory</Link>
+                  <Link className='link' to="/AddStory">AddStory</Link>
                </li>
                <li className=''>
-                  <Link to="/auth">Login</Link>
+                  <Link className='link' to="/auth">Login</Link>
                </li> 
             </ul>
             <div className='menubar' onClick={handleMenu}>

@@ -1,6 +1,6 @@
 .story-form-container {
     width: 50vw;
-    height: 100vh;
+    height: calc(100vh - (var(--navbar-height) + 10vh));
     margin: 0 auto;
 }
 .story-form-container h1 {

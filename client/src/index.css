@@ -21,7 +21,9 @@
    --medium-fontsize: 0.875rem;
    --nav-fontsize: var(--medium-fontsize);
    --blog-details-body: var(--sm-fontsize);
-   --filter-fontsize: var(--medium-fontsize)
+   --filter-fontsize: var(--medium-fontsize);
+
+   --navbar-height: 7vh;
 }
 
 * {
