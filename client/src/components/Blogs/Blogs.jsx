@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useRef} from 'react'
 import {FaTrash, FaThumbsUp, FaCommentAlt, FaHeart } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 
@@ -6,15 +6,30 @@ import {Link } from 'react-router-dom'
 
 import './Blogs.css'
 
-const Blogs = ({blogsList, handleDelete} ) => {
+const Blogs = ({ blogsList, handleDelete }) => {
     
 
     const [isReadMore, setIsReadMore] = useState(false);
     const [height, setHeight] = useState(null);
-    const [slicedText, setSlicedText] = useState(480)
+    const [slicedText, setSlicedText] = useState(480);
     const elementRef = useRef(null);
 
     const posts = useSelector((state) => state.posts)
+    const searchTerm = useSelector((state) => state.searchTerm)
+    
+    console.log(searchTerm);
+    console.log(posts.filter(post => post.title.trim().match(searchTerm)));
+    
+    let filteredPosts = posts;
+    if(searchTerm.length !== 0) {
+        //filteredPosts = posts.filter(post => post.title.normalize().trim().toLowerCase().indexOf(searchTerm.normalize().trim().toLowerCase()) !== -1)
+        //filteredPosts = posts.filter(post => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        
+        const pattern = new RegExp(searchTerm, 'gi')
+        filteredPosts = posts.filter(post => post.title.trim().match(pattern))
+
+        //filteredPosts = posts.filter(post => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    } 
     
     const detectHeight = () => {
         const newHeight = document.querySelector('.blog-details-body').clientHeight
@@ -28,14 +43,14 @@ const Blogs = ({blogsList, handleDelete} ) => {
         }
     }
     useEffect(() => {
-        window.addEventListener('resize', detectHeight)  
+        if (posts.length !== 0) {
+            window.addEventListener('resize', detectHeight)  
         
-        return() => {
-            window.removeEventListener('resize', detectHeight)
-        }
-
-        
-    }, [height]); //empty dependency array so it only runs once at render
+            return() => {
+                window.removeEventListener('resize', detectHeight)
+            }
+        }   
+    }, [height, posts, filteredPosts, searchTerm]); //empty dependency array so it only runs once at render
 
     const handleLike = () => {
 
@@ -48,7 +63,7 @@ const Blogs = ({blogsList, handleDelete} ) => {
   return (
     <div className='blogs'>
         <div className="blogs-container">
-                {posts.map((blog) => (
+                {filteredPosts.map((blog) => (
                     <article className="blog-card" key={blog._id}>
                         <div className="blog-img">
                             <img src={blog.selectedFile} alt="" />
@@ -72,10 +87,8 @@ const Blogs = ({blogsList, handleDelete} ) => {
                                 </p>
                             </div> 
                         </div>
-                        
                     </article>
                 ))}
-                
         </div>
     </div>
   )

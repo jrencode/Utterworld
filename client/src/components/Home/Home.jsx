@@ -28,8 +28,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-
-    dispatch(getPosts());
     setIsPending(false);
       
   }, [blogsList])

@@ -91,7 +91,7 @@ const Auth = () => {
               clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
               render={(renderProps) => (
                 
-                <button className='google-login-button' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained">
+                <button className='google-login-button' fullwidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained">
                   <FaGoogle/>Sign in with Google
                 </button>
               )}

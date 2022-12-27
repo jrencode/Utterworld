@@ -1,0 +1,5 @@
+.EditPage-container {
+    height: calc(100vh - var(--navbar-height));
+    border-bottom: 1px solid var(--gray1);
+    margin: 0 auto;
+}

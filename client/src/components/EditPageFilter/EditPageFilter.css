@@ -1,0 +1,19 @@
+.editPageFilter-container {
+    width: 100%;
+    max-width: 1720px;
+    min-height: 5vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    z-index: 2;
+    font-size: var(--nav-fontsize);
+}
+.filter-selection label {
+    color: var(--gray2);
+    margin-left: 1rem;
+}
+.filter-selection .box-container input {
+    margin-left: 0.5rem;
+}
