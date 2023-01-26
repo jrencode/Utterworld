@@ -19,7 +19,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
 
-const CONNECTION_URL = process.env.MONGODB_URI
+const CONNECTION_URL = process.env.MONGODB_URI || MONGODB_URI
 const PORT = process.env.PORT|| 5000;
 
 mongoose.set('strictQuery', true);
