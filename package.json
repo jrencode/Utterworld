@@ -2,7 +2,7 @@
   "name": "utterworld",
   "version": "1.0.0",
   "description": "Blog website",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
     "build": "cd server && npm install && cd ../client && npm install && npm run build",
     "start": "node server/index.js",
