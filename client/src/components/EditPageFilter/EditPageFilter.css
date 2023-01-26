@@ -17,3 +17,6 @@
 .filter-selection .box-container input {
     margin-left: 0.5rem;
 }
+.filter-selection * option {
+    padding: 5px 10px;
+}

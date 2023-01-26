@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getPosts } from '../../actions/posts'
-import { getWords } from '../../actions/searchItem'
+import { getSearchItem } from '../../actions/searchItem'
 
 import './Navbar.css'
 
@@ -19,7 +19,7 @@ const Navbar = () => {
    const handleChange = (e) => {
       setWordSearched(e.target.value);
       console.log(e.target.value);
-      dispatch(getWords(e.target.value))
+      dispatch(getSearchItem(e.target.value))
    }
    useEffect(() => {
       dispatch(getPosts());
@@ -48,7 +48,7 @@ const Navbar = () => {
                <li className=''>About</li>
                <li className=''>Contact</li>
                <li className=''>
-                  <Link className='link' to="/AddStory">AddStory</Link>
+                  <Link className='link' to="/StoryForm">AddStory</Link>
                </li>
                <li className=''>
                   <Link className='link' to="/Edit">Edit</Link>
