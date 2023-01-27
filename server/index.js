@@ -34,8 +34,8 @@ mongoose.connect(CONNECTION_URL, {
   useUnifiedTopology: true 
 })
   .then(() => 
-  app.listen(PORT, () => (
-    console.log(`Server Running on Port: http://localhost:${PORT}`))
+  app.listen(PORT, () => ( 
+    server &&  console.log('Server Running online') || console.log(`Server Running on Port: http://localhost:${PORT}`))
   )
   
   )
