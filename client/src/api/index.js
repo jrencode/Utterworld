@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-const url = 'https://utterworld.onrender.com/posts';
-
+const SERVER = '';
+let url = '';
+if(SERVER.length > 0) {
+   url = 'https://utterworld.onrender.com/posts'
+} else {
+    url = 'http://localhost:5000/posts';
+}
 
 export const fetchPosts = () => axios.get(url);
 export const createPost = (newPost) => axios.post(url, newPost);

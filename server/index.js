@@ -27,7 +27,7 @@ app.use('/user', userRoutes);
 
 const CONNECTION_URL = process.env.MONGODB_URI || MONGODB_URI
 const PORT = process.env.PORT|| 5000;
-
+const SERVER = '';
 mongoose.set('strictQuery', true);
 mongoose.connect(CONNECTION_URL, { 
   useNewUrlParser: true, 
@@ -35,7 +35,7 @@ mongoose.connect(CONNECTION_URL, {
 })
   .then(() => 
   app.listen(PORT, () => ( 
-    SERVER &&  console.log('Server Running online') || console.log(`Server Running on Port: http://localhost:${PORT}`))
+    SERVER.length > 0 ?  console.log('Server Running online') : console.log(`Server Running on Port: http://localhost:${PORT}`))
   )
   
   )
