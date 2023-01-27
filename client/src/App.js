@@ -5,7 +5,7 @@ import Home from './components/Home/Home'
 import Auth from './components/Auth/Auth'
 import BlogDetails from './components/Blogs/BlogDetails/BlogDetails';
 
-import {BrowserRouter, Route, Routes } from 'react-router-dom';
+import {BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
 import AddStoryForm from './components/AddStoryForm/StoryForm';
 import EditPage from './components/EditPage/EditPage';
 
@@ -14,7 +14,7 @@ const App = () => {
    return (
       
          <div className='full-width'>
-            <BrowserRouter>
+            <HashRouter>
             <Navbar />
                <div className='content'>
                   <Routes>
@@ -25,7 +25,7 @@ const App = () => {
                      <Route path='/blogs/:id' exact element={<BlogDetails />} />
                   </Routes>
                </div>
-            </BrowserRouter>
+            </HashRouter>
          </div>
    )
 }
