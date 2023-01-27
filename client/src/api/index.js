@@ -3,6 +3,7 @@ import axios from 'axios';
 const SERVER = '';
 let url = '';
 if(SERVER.length > 0) {
+    console.log('server running online')
    url = 'https://utterworld.onrender.com/posts'
 } else {
     url = 'http://localhost:5000/posts';
