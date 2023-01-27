@@ -35,7 +35,7 @@ mongoose.connect(CONNECTION_URL, {
 })
   .then(() => 
   app.listen(PORT, () => ( 
-    server &&  console.log('Server Running online') || console.log(`Server Running on Port: http://localhost:${PORT}`))
+    SERVER &&  console.log('Server Running online') || console.log(`Server Running on Port: http://localhost:${PORT}`))
   )
   
   )
