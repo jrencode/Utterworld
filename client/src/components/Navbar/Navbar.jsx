@@ -13,14 +13,14 @@ const Navbar = () => {
    const [menu, setMenu] = useState(false);
    const [wordSearched, setWordSearched] = useState('');
 
-   const navList = [
+   const [navList, setNavList] = useState([
       { name: 'Home', link: '/' },
       { name: 'About', link: '/about'},
       { name: 'Contact', link: '/contact'},
       { name: 'Add', link: '/storyForm'},
       { name: 'Edit', link: '/edit'},
       { name: 'Login', link: '/auth'},
-   ]
+   ])
    console.log(navList.name)
 
    const handleMenu = () => {
