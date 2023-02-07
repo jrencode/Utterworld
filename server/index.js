@@ -27,7 +27,6 @@ app.use('/user', userRoutes);
 
 const CONNECTION_URL = process.env.MONGODB_URI || MONGODB_URI
 const PORT = process.env.PORT|| 5000;
-const SERVER = '';
 mongoose.set('strictQuery', true);
 mongoose.connect(CONNECTION_URL, { 
   useNewUrlParser: true, 

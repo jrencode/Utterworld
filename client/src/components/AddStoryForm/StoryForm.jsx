@@ -19,14 +19,15 @@ const StoryForm = () => {
 
     console.log(editedId);
     console.log(stories);
-    let initialData = {
+    let initialFormData = {
         author: '',
         title: '',
         story: '',
         tags: '',
         selectedFile: '',
+        createdAt: '',
     }
-    const [postData, setPostData] = useState(initialData);
+    const [postData, setPostData] = useState(initialFormData);
     console.log(postData);
     console.log(typeof editedId);
     console.log(editedId.length);
@@ -36,9 +37,9 @@ const StoryForm = () => {
         console.log('editing');
         const editStoryData = stories.filter(story => story._id === editedId)
         console.log(editStoryData[0])
-        console.log(initialData);
-        initialData = editStoryData[0]
-        console.log(initialData);
+        console.log(initialFormData);
+        initialFormData = editStoryData[0]
+        console.log(initialFormData);
     }
     
 
@@ -49,11 +50,11 @@ const StoryForm = () => {
         if(editedId.length > 0) {
             console.log(postData);
             dispatch(updatePost(editedId, postData));
-            editedId = '';
+            navigate('/');
             clear();
-            navigate('/')
         } else {
             dispatch(createPost(postData));
+            navigate('/')
         }
     }
 
@@ -70,7 +71,7 @@ const StoryForm = () => {
     }
     useEffect(() => {
         setEditId(editedId);
-        setPostData(initialData);
+        setPostData(initialFormData);
     },[setPostData, setEditId])
     return (
     <div>

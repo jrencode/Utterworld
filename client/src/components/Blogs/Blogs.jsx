@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef, useCallback} from 'react'
 import {FaTrash, FaThumbsUp, FaCommentAlt, FaHeart, FaEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 
 import {Link } from 'react-router-dom'
 
@@ -10,51 +10,48 @@ import { deletePost } from '../../actions/posts';
 
 import './Blogs.css'
 
+
+const format = (text, textEnd) => {
+    return text.slice(0, textEnd);
+}
+
+
 const Blogs = () => {
     let location = useLocation();
     const dispatch = useDispatch();
-
-    //const [isReadMore, setIsReadMore] = useState(false);
-    const [height, setHeight] = useState(null);
-    const [slicedText, setSlicedText] = useState(480);
-    const elementRef = useRef(null);
 
     // DATA FROM STORE
     const posts = useSelector((state) => state.posts)
     const searchTerm = useSelector((state) => state.searchTerm)
     const filters = useSelector((state) => state.filters)
-    
-    let filteredPosts = posts;
+
+    //const [isReadMore, setIsReadMore] = useState(false);
+    const [height, setHeight] = useState(null);
+    const [slicedText, setSlicedText] = useState(480);
+    const [moreButton, setMoreButton] = useState(false);
+    const elementRef = useRef(null);
+    const [postsData, setPostsData] = useState(posts);
 
     console.log(location.pathname);
-  
-    
-
-    
-    if(searchTerm.length > 0 || Object.keys(filters).length > 0) {
-        //filteredPosts = posts.filter(post => post.title.normalize().trim().toLowerCase().indexOf(searchTerm.normalize().trim().toLowerCase()) !== -1)
-        //filteredPosts = posts.filter(post => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
-        
-        console.log( (typeof selectedYear), filters.selectedYear, filters.selectedMonth);
-        
-        const pattern = new RegExp(searchTerm, 'gi')
-        filteredPosts = posts.filter(post => {
-            if(location.pathname === '/') { // Search filter only in Home Component
-                if(searchTerm.length > 0) {
-                    return post.title.trim().match(pattern)
-                } else {
-                    return filteredPosts;
-                }
-                
-            } else {
-                return post.title.trim().match(pattern) &&
-                    post.createdAt.slice(5, 7) === filters.selectedMonth &&
-                    post.createdAt.slice(0, 4) === filters.selectedYear
-            }
-            
-        });
-        //filteredPosts = posts.filter(post => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    console.log(postsData);
+    const toggleMoreBtn = (body) => {
+        return body.length > slicedText
     }
+
+    const filteredPosts = useCallback(() => {
+        if (searchTerm.length > 0 || Object.keys(filters).length > 0) {
+          const pattern = new RegExp(searchTerm, 'gi');
+          return posts.filter((post) => {
+            if (location.pathname === '/') {
+              return searchTerm.length > 0 ? post.title.trim().match(pattern) : posts;
+            }
+            return post.title.trim().match(pattern) &&
+              post.createdAt.slice(5, 7) === filters.selectedMonth &&
+              post.createdAt.slice(0, 4) === filters.selectedYear;
+          });
+        }
+        return posts;
+    }, [searchTerm, filters, posts, location.pathname]);
     
     const detectHeight = () => {
         const newHeight = document.querySelector('.blog-details-body').clientHeight
@@ -69,6 +66,9 @@ const Blogs = () => {
     }
     useEffect(() => {
         console.log('udpated')
+        setPostsData(filteredPosts);
+        console.log(filteredPosts);
+        console.log(postsData)
         if (posts.length !== 0) {
             window.addEventListener('resize', detectHeight)  
         
@@ -76,7 +76,7 @@ const Blogs = () => {
                 window.removeEventListener('resize', detectHeight)
             }
         }   
-    }, [height, posts, searchTerm, detectHeight]); //empty dependency array so it only runs once at render
+    }, [filteredPosts]); //empty dependency array so it only runs once at render
 
     const handleLike = () => {
 
@@ -95,7 +95,7 @@ const Blogs = () => {
   return (
     <div className='blogs'>
         <div className="blogs-container">
-                {filteredPosts.length > 0 ? filteredPosts.map((blog) => (
+                {postsData ? postsData.map((blog) => (
                     <article className="blog-card" key={blog._id}>
                         <div className="blog-img">
                             <img src={blog.selectedFile} alt="" />
@@ -114,14 +114,13 @@ const Blogs = () => {
                         <div className="blog-details">
                             {/* {blog.title.length > 70  && blog.title.slice(0, 60)} */}
                             <div>
-                                <div>{blog.createdAt.toLocaleString('en-US', {day: '2-digit'})} </div>
-                                <small className='blog-details-date'>{blog.createdAt.slice(0, 10)} </small>
+                                <small className='blog-details-date'>{format(blog.createdAt, 10)} </small>
                                 <h5 className='blog-details-author'>Author: {blog.author} </h5>
                                 <h4 className='blog-details-title'>{blog.title} | Length - {blog.story.length} | Height {height} </h4>
                                 <p className='blog-details-body' ref={elementRef}>
                                     
-                                    {blog.story.slice(0, 380)}
-                                    {(blog.story.length > slicedText) && <Link className='more-button' to={`/blogs/${blog._id}`}>   more...</Link>}
+                                    {format(blog.story, slicedText)}
+                                    {toggleMoreBtn(blog.story) && <Link className='more-button' to={`/blogs/${blog._id}`}>   more...</Link>}
                                 </p>
                             </div> 
                         </div>
@@ -130,6 +129,6 @@ const Blogs = () => {
         </div>
     </div>
   )
-}
+};
 
-export default Blogs
+export default connect()(Blogs)
