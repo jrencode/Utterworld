@@ -25,7 +25,6 @@ const StoryForm = () => {
         story: '',
         tags: '',
         selectedFile: '',
-        createdAt: '',
     }
     const [postData, setPostData] = useState(initialFormData);
     console.log(postData);
