@@ -27,18 +27,13 @@ const StoryForm = () => {
         selectedFile: '',
     }
     const [postData, setPostData] = useState(initialFormData);
-    console.log(postData);
-    console.log(typeof editedId);
-    console.log(editedId.length);
-    console.log(editId);
     
+    console.log(typeof editId);
+    console.log(editId);
     if(editId.length > 0) {
         console.log('editing');
         const editStoryData = stories.filter(story => story._id === editedId)
-        console.log(editStoryData[0])
-        console.log(initialFormData);
         initialFormData = editStoryData[0]
-        console.log(initialFormData);
     }
     
 
@@ -46,9 +41,9 @@ const StoryForm = () => {
         e.preventDefault();
 
         console.log(postData);
-        if(editedId.length > 0) {
+        if(editId.length > 0) {
             console.log(postData);
-            dispatch(updatePost(editedId, postData));
+            dispatch(updatePost(editId, postData));
             navigate('/');
             clear();
         } else {
@@ -64,8 +59,8 @@ const StoryForm = () => {
             story: '',
             tags: '',
             selectedFile: '',
-        })
-        setEditId(0);
+        });
+        setEditId('');
         
     }
     useEffect(() => {
@@ -89,7 +84,7 @@ const StoryForm = () => {
                 <FileBase type="file" id="img" name="img" accept="image/*" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
                 <div className='story-form-buttons'>
                     <button className='submit-button' type='submit'>Submit</button>
-                    <button className='clear-button' onClick={() => clear()}>Clear</button>
+                    <div className='clear-button' onClick={() => clear()}>Clear</div>
                 </div>
                 
             </form>
