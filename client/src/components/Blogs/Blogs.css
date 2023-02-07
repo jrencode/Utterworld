@@ -29,10 +29,10 @@
     flex-wrap: wrap;
     width: 100%;
     background-color: var(--white);
-    gap: 1rem;
+    gap: 0.5rem;
     min-height: 100px;
     padding: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     border-radius: 5px;
 }
 .blog-img {
@@ -102,7 +102,4 @@ small {
 .more-button {
     cursor: pointer;
     color: var(--primary);
-}
-.deleteButton {
-    
 }

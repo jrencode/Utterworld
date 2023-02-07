@@ -13,6 +13,16 @@ const Navbar = () => {
    const [menu, setMenu] = useState(false);
    const [wordSearched, setWordSearched] = useState('');
 
+   const navList = [
+      { name: 'Home', link: '/' },
+      { name: 'About', link: '/about'},
+      { name: 'Contact', link: '/contact'},
+      { name: 'Add', link: '/storyForm'},
+      { name: 'Edit', link: '/edit'},
+      { name: 'Login', link: '/auth'},
+   ]
+   console.log(navList.name)
+
    const handleMenu = () => {
       setMenu(!menu)
    }
@@ -42,20 +52,11 @@ const Navbar = () => {
             </div>
             
             <ul className={menu ? 'nav-list active' : 'nav-list'}>
-               <li className=''>
-                  <Link className='link' to="/">Home</Link>
-               </li>
-               <li className=''>About</li>
-               <li className=''>Contact</li>
-               <li className=''>
-                  <Link className='link' to="/StoryForm">AddStory</Link>
-               </li>
-               <li className=''>
-                  <Link className='link' to="/Edit">Edit</Link>
-               </li>
-               <li className=''>
-                  <Link className='link' to="/auth">Login</Link>
-               </li> 
+               {navList.map(list => (
+                  <Link className='link' to={list.link}>
+                     <li>{list.name} </li>
+                  </Link>
+               ))} 
             </ul>
             <div className='menubar' onClick={handleMenu}>
                <div className={menu ? 'line lineOne active' : 'line lineOne'} ></div>
