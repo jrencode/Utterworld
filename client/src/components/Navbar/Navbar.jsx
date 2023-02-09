@@ -2,26 +2,26 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getPosts } from '../../actions/posts'
-import { getSearchItem } from '../../actions/searchItem'
+import { getSearchItem } from '../../actions/displayItem'
 
 import './Navbar.css'
 
 const Navbar = () => {
    const dispatch = useDispatch();
 
-   const brand = 'UTTERWORLD'
-   const [menu, setMenu] = useState(false);
-   const [wordSearched, setWordSearched] = useState('');
-
-   const [navList, setNavList] = useState([
+   const nav = [
       { name: 'Home', link: '/' },
       { name: 'About', link: '/about'},
       { name: 'Contact', link: '/contact'},
       { name: 'Add', link: '/storyForm'},
       { name: 'Edit', link: '/edit'},
       { name: 'Login', link: '/auth'},
-   ])
-   console.log(navList.name)
+   ]
+   const brand = 'UTTERWORLD'
+   const [menu, setMenu] = useState(false);
+   const [wordSearched, setWordSearched] = useState('');
+
+   const [navList, setNavList] = useState(nav)
 
    const handleMenu = () => {
       setMenu(!menu)
@@ -32,6 +32,7 @@ const Navbar = () => {
       dispatch(getSearchItem(e.target.value))
    }
    useEffect(() => {
+      setNavList(nav);
       dispatch(getPosts());
    },[dispatch] );
 
@@ -53,7 +54,7 @@ const Navbar = () => {
             
             <ul className={menu ? 'nav-list active' : 'nav-list'}>
                {navList.map(list => (
-                  <Link className='link' to={list.link}>
+                  <Link className='link' to={list.link} key={list.name}>
                      <li>{list.name} </li>
                   </Link>
                ))} 

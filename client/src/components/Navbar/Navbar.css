@@ -4,6 +4,7 @@
    height: var(--navbar-height);
    display: flex;
    align-items: center;
+   box-shadow: 5px 0px 10px var(--gray1);
 }
 .nav-container {
    width: 100%;
@@ -14,6 +15,7 @@
    justify-content: space-between;
    margin: 0 auto;
    z-index: 2;
+   padding: 0 1.5rem;
 }
 
 .brand {
@@ -74,7 +76,6 @@
    flex-direction: column;
    gap: 5px;
    cursor: pointer;
-   padding: 10px;
 }
 .line {
    transition: 0.2s linear;
@@ -186,7 +187,7 @@
 
    /*SEARCH */
    .search {
-      width: 60vw;
+      width: 50vw;
       margin-left: 2rem;
       padding: 5px 15px;
       border-radius: 5px;
@@ -194,7 +195,15 @@
  }
 
  @media only screen and (max-width: 720px) {
+   .nav-container {
+      padding: 0 1.5rem;
+   }
    .search {
-      width: 45vw;
+      max-width: 35vw;
+   }
+ }
+ @media only screen and (max-width: 520px) {
+   .search {
+      max-width: 25vw;
    }
  }

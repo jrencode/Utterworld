@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from 'react-redux';
-import { getFilterItem } from '../../actions/searchItem';
+import { getFilterItem } from '../../actions/displayItem';
 
 import './EditPageFilter.css';
 

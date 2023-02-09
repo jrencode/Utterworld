@@ -6,6 +6,11 @@ export const getSearchItem = (searchTerm) => (dispatch) => {
 
 export const getFilterItem = (selectedFilters) => (dispatch) => {
     const filters = selectedFilters;
-    console.log(filters);
     dispatch({type: 'FILTERS', payload: filters })
+}
+export const getSortByDateItem = (isSorted) => (dispatch) => {
+    dispatch({type: 'SORT', payload: isSorted })
+}
+export const getShuffleItem = (shuffle) => (dispatch) => {
+    dispatch({type: 'SHUFFLE', payload: shuffle})
 }

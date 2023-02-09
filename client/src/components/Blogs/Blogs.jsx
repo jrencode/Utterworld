@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback} from 'react'
-import {FaTrash, FaThumbsUp, FaCommentAlt, FaHeart, FaEdit } from "react-icons/fa";
-import { useDispatch, useSelector, connect } from 'react-redux';
+import {FaTrash, FaThumbsUp, FaCommentAlt, FaEdit } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
 
 import {Link } from 'react-router-dom'
 
@@ -24,24 +24,37 @@ const Blogs = () => {
     const posts = useSelector((state) => state.posts)
     const searchTerm = useSelector((state) => state.searchTerm)
     const filters = useSelector((state) => state.filters)
+    const isSorted = useSelector((state) => state.isSorted)
+    const isShuffle = useSelector((state) => state.shuffleItem)
 
     //const [isReadMore, setIsReadMore] = useState(false);
     const [height, setHeight] = useState(null);
     const [slicedText, setSlicedText] = useState(480);
-    const [moreButton, setMoreButton] = useState(false);
     const elementRef = useRef(null);
     const [postsData, setPostsData] = useState(posts);
 
-    console.log(location.pathname);
-    console.log(postsData);
+
     const toggleMoreBtn = (body) => {
         return body.length > slicedText
     }
 
+    if (isSorted) {
+        posts.sort((a, b ) => new Date(b.createdAt) - new Date(a.createdAt));
+    } 
+    if (!isSorted) {
+        posts.sort((a, b ) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    if (isShuffle) {
+        posts.sort(() => Math.random() - 0.5)
+    }
+
+    
     const filteredPosts = useCallback(() => {
+        let filteredData = posts;
+      
         if (searchTerm.length > 0 || Object.keys(filters).length > 0) {
           const pattern = new RegExp(searchTerm, 'gi');
-          return posts.filter((post) => {
+          filteredData = posts.filter((post) => {
             if (location.pathname === '/') {
               return searchTerm.length > 0 ? post.title.trim().match(pattern) : posts;
             }
@@ -50,8 +63,12 @@ const Blogs = () => {
               post.createdAt.slice(0, 4) === filters.selectedYear;
           });
         }
-        return posts;
-    }, [searchTerm, filters, posts, location.pathname]);
+        
+        return filteredData;
+    }, [searchTerm, filters, posts]);
+    
+    
+
     
     const detectHeight = () => {
         const newHeight = document.querySelector('.blog-details-body').clientHeight
@@ -65,18 +82,16 @@ const Blogs = () => {
         }
     }
     useEffect(() => {
-        console.log('udpated')
         setPostsData(filteredPosts);
-        console.log(filteredPosts);
-        console.log(postsData)
-        if (posts.length !== 0) {
+        if (posts) {
             window.addEventListener('resize', detectHeight)  
         
             return() => {
                 window.removeEventListener('resize', detectHeight)
             }
-        }   
-    }, [filteredPosts]); //empty dependency array so it only runs once at render
+        }
+        console.log('updated')
+    }, [filteredPosts, posts, isSorted]); //empty dependency array so it only runs once at render
 
     const handleLike = () => {
 
@@ -125,10 +140,10 @@ const Blogs = () => {
                             </div> 
                         </div>
                     </article>
-                )) : <article className='blog-card'>Nothing to Display with this current Search or filter</article>}
+                )) : <article className='blog-card'>Loading...</article>}
         </div>
     </div>
   )
 };
 
-export default connect()(Blogs)
+export default Blogs

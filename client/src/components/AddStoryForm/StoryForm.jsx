@@ -53,6 +53,7 @@ const StoryForm = () => {
     }
 
     const clear = () => {
+        console.log('cleared')
         setPostData({
             author: '',
             title: '',
