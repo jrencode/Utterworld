@@ -54,7 +54,7 @@ const Navbar = () => {
             
             <ul className={menu ? 'nav-list active' : 'nav-list'}>
                {navList.map(list => (
-                  <Link className='link' to={list.link} key={list.name}>
+                  <Link className='link' to={list.link} key={list.name} onClick={handleMenu}>
                      <li>{list.name} </li>
                   </Link>
                ))} 

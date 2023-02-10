@@ -10,11 +10,32 @@ import { deletePost } from '../../actions/posts';
 
 import './Blogs.css'
 
+const event = new Date();
 
+// British English uses day-month-year order and 24-hour time without AM/PM
+console.log(event.toLocaleString('en-GB', { TimeZone: 'Asia/Manila' }));
 const format = (text, textEnd) => {
     return text.slice(0, textEnd);
 }
-
+const formatDate = (date) => {
+    const newDate = new Date(date);
+    const monthName = newDate.getDate();
+    return monthName;
+}
+var getDateToday = (date) => {
+    let d = new Date(date)
+    if(String(d.getDate()).length < 2) {
+        return `0${String(d.getDate())}`
+    } else {
+        return d.getDate();
+    }
+};
+function getDaysInMonth() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    return new Date(year, month + 1, 0).getDate();
+}
 
 const Blogs = () => {
     let location = useLocation();
@@ -33,7 +54,6 @@ const Blogs = () => {
     const elementRef = useRef(null);
     const [postsData, setPostsData] = useState(posts);
 
-
     const toggleMoreBtn = (body) => {
         return body.length > slicedText
     }
@@ -51,7 +71,7 @@ const Blogs = () => {
     
     const filteredPosts = useCallback(() => {
         let filteredData = posts;
-      
+        
         if (searchTerm.length > 0 || Object.keys(filters).length > 0) {
           const pattern = new RegExp(searchTerm, 'gi');
           filteredData = posts.filter((post) => {
@@ -60,7 +80,8 @@ const Blogs = () => {
             }
             return post.title.trim().match(pattern) &&
               post.createdAt.slice(5, 7) === filters.selectedMonth &&
-              post.createdAt.slice(0, 4) === filters.selectedYear;
+              post.createdAt.slice(0, 4) === filters.selectedYear ||
+              post.createdAt.slice(8, 10) === filters.selectedDate
           });
         }
         
@@ -73,7 +94,6 @@ const Blogs = () => {
     const detectHeight = () => {
         const newHeight = document.querySelector('.blog-details-body').clientHeight
         setHeight(newHeight);
-        console.log(newHeight);
 
         if(newHeight > height) {
             setSlicedText(slicedText - 142 )

@@ -12,21 +12,17 @@ const Filter = () => {
 
   const sortPosts = () => {
     sort = !sort
-    console.log(sort);
     dispatch(getSortByDateItem(sort))
   };
   const shufflePosts = () => {
-    console.log('shuffled')
-    let timeoutId;
     shuffle = !shuffle
-    console.log(shuffle);
     dispatch(getShuffleItem(shuffle))
 
     if(shuffle) {
     setTimeout(() => {
         shuffle = false;
         dispatch(getShuffleItem(shuffle))
-      }, 2000)
+      }, 5000)
 
     }
     
