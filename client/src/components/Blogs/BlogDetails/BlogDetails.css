@@ -5,9 +5,19 @@
     padding: 1rem;
 }
 .blog-details-container img {
+    margin-bottom: 1rem;
     border-radius: 5px;
-    height: 300px;
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+.blog-date {
+    color: var(--gray2);
 }
 .blog-title {
     font-weight: bold;
+    font-size: 2.5rem;
+}
+.blog-story {
+    color: var(--gray3);
 }

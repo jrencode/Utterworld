@@ -7,6 +7,7 @@ import {Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 import { getEditItem } from '../../actions/editItem';
 import { deletePost } from '../../actions/posts';
+import { formatDate } from '../../reusable_Functions/dateFormat';
 
 import './Blogs.css'
 
@@ -17,24 +18,7 @@ console.log(event.toLocaleString('en-GB', { TimeZone: 'Asia/Manila' }));
 const format = (text, textEnd) => {
     return text.slice(0, textEnd);
 }
-var getDate = (date) => {
-    let d = new Date(date)
-    if(String(d.getDate()).length < 2) {
-        return `0${String(d.getDate())}`
-    } else {
-        return d.getDate();
-    }
-};
-const getMonthName = (date) => {
-    const d = new Date(date);
-    const monthName = d.toLocaleString('default', { month: 'long' });
-    return monthName;
-}
-const getYear = (date) => {
-    const d = new Date(date);
-    const fullYear = d.getFullYear();
-    return fullYear;
-}
+
 
 
 const Blogs = () => {
@@ -150,7 +134,7 @@ const Blogs = () => {
                         <div className="blog-details">
                             {/* {blog.title.length > 70  && blog.title.slice(0, 60)} */}
                             <div>
-                                <small className='blog-details-date'>{getDate(blog.createdAt)}  {getMonthName(blog.createdAt)}  {getYear(blog.createdAt)} </small>
+                                <small className='blog-details-date'>{formatDate(blog.createdAt)}</small>
                                 <h5 className='blog-details-author'>Author: {blog.author} </h5>
                                 <h4 className='blog-details-title'>{blog.title}</h4>
                                 <p className='blog-details-body' ref={elementRef}>

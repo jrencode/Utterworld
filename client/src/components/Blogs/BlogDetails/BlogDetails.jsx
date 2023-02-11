@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { getDate, getMonthName, getYear, formatDate } from '../../../reusable_Functions/dateFormat'
 import './BlogDetails.css'
 
 import {useParams } from 'react-router-dom'
@@ -47,15 +47,15 @@ const BlogDetails = () => {
       }, [])
   return (
     <div className='blog-details'>
-        <div className="blog-details-container">
+        <article className="blog-details-container">
             <small>
-                By Author: {blog._id}
+                Author: {blog.author}
             </small>
             <img src={blog.selectedFile} alt="" className='imgHero'/>
-            <h5>Date: {blog.createdAt} </h5>
-            <h2 className='blog-title'>{blog.title} </h2>
-            <p>{blog.story} </p>
-        </div>
+            <time className='blog-date'>{formatDate(blog.createdAt)} </time>
+            <h1 className='blog-title'>{blog.title} </h1>
+            <p className='blog-story'>{blog.story} </p>
+        </article>
     </div>
   )
 }
