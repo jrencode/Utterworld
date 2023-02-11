@@ -28,8 +28,6 @@ const StoryForm = () => {
     }
     const [postData, setPostData] = useState(initialFormData);
     
-    console.log(typeof editId);
-    console.log(editId);
     if(editId.length > 0) {
         console.log('editing');
         const editStoryData = stories.filter(story => story._id === editedId)

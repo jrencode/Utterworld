@@ -17,12 +17,7 @@ console.log(event.toLocaleString('en-GB', { TimeZone: 'Asia/Manila' }));
 const format = (text, textEnd) => {
     return text.slice(0, textEnd);
 }
-const formatDate = (date) => {
-    const newDate = new Date(date);
-    const monthName = newDate.getDate();
-    return monthName;
-}
-var getDateToday = (date) => {
+var getDate = (date) => {
     let d = new Date(date)
     if(String(d.getDate()).length < 2) {
         return `0${String(d.getDate())}`
@@ -30,12 +25,17 @@ var getDateToday = (date) => {
         return d.getDate();
     }
 };
-function getDaysInMonth() {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    return new Date(year, month + 1, 0).getDate();
+const getMonthName = (date) => {
+    const d = new Date(date);
+    const monthName = d.toLocaleString('default', { month: 'long' });
+    return monthName;
 }
+const getYear = (date) => {
+    const d = new Date(date);
+    const fullYear = d.getFullYear();
+    return fullYear;
+}
+
 
 const Blogs = () => {
     let location = useLocation();
@@ -47,6 +47,7 @@ const Blogs = () => {
     const filters = useSelector((state) => state.filters)
     const isSorted = useSelector((state) => state.isSorted)
     const isShuffle = useSelector((state) => state.shuffleItem)
+    const isImagesChecked = useSelector((state) => state.imagesIsChecked)
 
     //const [isReadMore, setIsReadMore] = useState(false);
     const [height, setHeight] = useState(null);
@@ -78,9 +79,9 @@ const Blogs = () => {
             if (location.pathname === '/') {
               return searchTerm.length > 0 ? post.title.trim().match(pattern) : posts;
             }
-            return post.title.trim().match(pattern) &&
+            return (post.title.trim().match(pattern) &&
               post.createdAt.slice(5, 7) === filters.selectedMonth &&
-              post.createdAt.slice(0, 4) === filters.selectedYear ||
+              post.createdAt.slice(0, 4) === filters.selectedYear)  ||
               post.createdAt.slice(8, 10) === filters.selectedDate
           });
         }
@@ -132,9 +133,9 @@ const Blogs = () => {
         <div className="blogs-container">
                 {postsData ? postsData.map((blog) => (
                     <article className="blog-card" key={blog._id}>
-                        <div className="blog-img">
+                        <div className={isImagesChecked ? 'blog-img' : 'blog-img-inactive'}>
                             <img src={blog.selectedFile} alt="" />
-                            <div className="blog-img-overlay">
+                            <div className={isImagesChecked ? 'blog-img-overlay .relative' : 'blog-img-inactive'}>
                                 <p className='MessageButton' onClick={() => handleToggleMessage(blog.id)}><FaCommentAlt/></p>
                                 <p className='LikeButton' onClick={() => handleLike(blog.id)}><FaThumbsUp/></p>
                                 <p className='deleteButton' onClick={() => handleDelete(blog._id)}><FaTrash/></p>
@@ -149,9 +150,9 @@ const Blogs = () => {
                         <div className="blog-details">
                             {/* {blog.title.length > 70  && blog.title.slice(0, 60)} */}
                             <div>
-                                <small className='blog-details-date'>{format(blog.createdAt, 10)} </small>
+                                <small className='blog-details-date'>{getDate(blog.createdAt)}  {getMonthName(blog.createdAt)}  {getYear(blog.createdAt)} </small>
                                 <h5 className='blog-details-author'>Author: {blog.author} </h5>
-                                <h4 className='blog-details-title'>{blog.title} | Length - {blog.story.length} | Height {height} </h4>
+                                <h4 className='blog-details-title'>{blog.title}</h4>
                                 <p className='blog-details-body' ref={elementRef}>
                                     
                                     {format(blog.story, slicedText)}

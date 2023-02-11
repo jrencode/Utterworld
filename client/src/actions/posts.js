@@ -31,9 +31,8 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
       console.log(data);
       console.log(updatedPost);
 
-      if(data) {
-        dispatch({ type: UPDATE, payload: data });
-      }
+
+      await dispatch({ type: UPDATE, payload: updatedPost });
         
     } catch (error) {
       console.log(error);
