@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 
 
-const API = axios.create({ baseURL: 'https://utterworld.onrender.com/posts' });
+const API = axios.create({ baseURL: 'https://utterworld.onrender.com' });
 // const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
