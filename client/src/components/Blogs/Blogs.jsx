@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { getEditItem } from '../../actions/editItem';
 import { deletePost } from '../../actions/posts';
 import { formatDate } from '../../reusable_Functions/dateFormat';
+import { getDate } from '../../reusable_Functions/dateFormat';
 
 import './Blogs.css'
 
@@ -63,12 +64,15 @@ const Blogs = () => {
             if (location.pathname === '/') {
               return searchTerm.length > 0 ? post.title.trim().match(pattern) : posts;
             }
-            return (post.title.trim().match(pattern) &&
+            console.log(filters.selectedMonth, filters.selectedYear, filters.selectedDate, getDate(post.createdAt).toString())
+            console.log(post.title.trim);
+            return ((post.title.trim().match(pattern) &&
               post.createdAt.slice(5, 7) === filters.selectedMonth &&
-              post.createdAt.slice(0, 4) === filters.selectedYear)  ||
-              post.createdAt.slice(8, 10) === filters.selectedDate
+              post.createdAt.slice(0, 4) === filters.selectedYear)) &&
+              getDate(post.createdAt).toString() === filters.selectedDate
           });
         }
+        console.log(filteredData);
         
         return filteredData;
     }, [searchTerm, filters, posts]);
@@ -96,7 +100,7 @@ const Blogs = () => {
             }
         }
         console.log('updated')
-    }, [filteredPosts, posts, isSorted]); //empty dependency array so it only runs once at render
+    }, [filteredPosts, posts]); //empty dependency array so it only runs once at render
 
     const handleLike = () => {
 

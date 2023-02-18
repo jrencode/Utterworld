@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 
 const postSchema = mongoose.Schema({
    author: String,
+   authorId: String,
    title: String,
    story: String,
    tags: [String],

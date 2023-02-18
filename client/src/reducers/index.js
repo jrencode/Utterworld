@@ -7,5 +7,6 @@ import editItemId from './editItem';
 import isSorted from './sortItem';
 import shuffleItem from './shuffleItem';
 import imagesIsChecked from './displayItemsImages';
+import authReducer from './auth';
 
-export const reducers = combineReducers({ posts, searchTerm, filters, editItemId, isSorted, shuffleItem, imagesIsChecked });
+export const reducers = combineReducers({authReducer, posts, searchTerm, filters, editItemId, isSorted, shuffleItem, imagesIsChecked });

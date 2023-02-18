@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
 import { createPost, updatePost } from '../../actions/posts';
+import Cookies from 'js-cookie';
 
 import FileBase from 'react-file-base64';
 
@@ -16,11 +17,13 @@ const StoryForm = () => {
     let editedId = useSelector(state => state.editItemId)
     const [editId, setEditId] = useState(editedId);
     const stories = useSelector(state => state.posts)
+    const userEmail = Cookies.get('auth_email');
+
 
     console.log(editedId);
     console.log(stories);
     let initialFormData = {
-        author: '',
+        author: userEmail ? `${userEmail}` : '',
         title: '',
         story: '',
         tags: '',
@@ -31,7 +34,11 @@ const StoryForm = () => {
     if(editId.length > 0) {
         console.log('editing');
         const editStoryData = stories.filter(story => story._id === editedId)
-        initialFormData = editStoryData[0]
+        if(userEmail) {
+            initialFormData = {...editStoryData[0], author: userEmail}
+        }
+        initialFormData = editStoryData[0];
+        
     }
     
 
@@ -41,19 +48,19 @@ const StoryForm = () => {
         console.log(postData);
         if(editId.length > 0) {
             console.log(postData);
-            dispatch(updatePost(editId, postData));
-            navigate('/');
+            dispatch(updatePost(editId, {...postData, author: userEmail}));
+            navigate('/edit')
             clear();
         } else {
             dispatch(createPost(postData));
-            navigate('/')
+            navigate('/edit')
         }
     }
 
     const clear = () => {
         console.log('cleared')
         setPostData({
-            author: '',
+            author: userEmail ? `${userEmail}` : '',
             title: '',
             story: '',
             tags: '',
@@ -65,7 +72,7 @@ const StoryForm = () => {
     useEffect(() => {
         setEditId(editedId);
         setPostData(initialFormData);
-    },[setPostData, setEditId])
+    },[setPostData, setEditId, editedId])
     return (
     <div>
         <div className='story-form-container'>

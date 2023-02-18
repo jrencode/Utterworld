@@ -1,0 +1,31 @@
+
+.dropdown {
+    position: relative;
+    height: 100%;
+}
+.profileImage {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--gray1);
+    border-radius: 50%;
+    background-color: var(--white);
+    margin-right: 1rem;
+}
+.dropdown-menu {
+    position: absolute;
+    left: 0;
+    background-color: var(--white);
+    color: var(--gray3);
+    top: 100%;
+    width: 100%;
+}
+.arrow-down {
+    margin-left: 1rem;
+}
+
+@media only screen and (max-width: 1200px) {
+    .dropdown {
+       max-height: 75px;
+       color: var(--white);
+    }
+}

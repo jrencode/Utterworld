@@ -9,6 +9,7 @@ import {BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
 import AddStoryForm from './components/AddStoryForm/StoryForm';
 import EditPage from './components/EditPage/EditPage';
 import AboutPage from './components/Views/AboutPage/AboutPage';
+import Profile from './components/Views/ProfilePage/Profile';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
                      <Route path='/' exact element={<Home />} />
                      <Route path='/about' exact element={<AboutPage />} />
                      <Route path='/auth' exact element={<Auth />} />
+                     <Route path='/profile' exact element={<Profile />} />
                      <Route path='/edit' exact element={<EditPage />} />
                      <Route path='/StoryForm' exact element={<AddStoryForm />} />
                      <Route path='/blogs/:id' exact element={<BlogDetails />} />

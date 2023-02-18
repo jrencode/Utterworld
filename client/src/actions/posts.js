@@ -1,4 +1,4 @@
-import {START_LOADING, CREATE, UPDATE, FETCH_ALL, DELETE } from '../constants/actionTypes';
+import {START_LOADING, CREATE, UPDATE, FETCH_ALL, FETCH_BY_AUTHOR, DELETE } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 
@@ -7,6 +7,16 @@ export const getPosts = () => async (dispatch) => {
     const { data } = await api.fetchPosts();
     dispatch({ type: FETCH_ALL, payload: data })
 
+  } catch (error) {
+    
+  }
+}
+export const getPostsByAuthor = () => async (dispatch) => {
+  try {
+    console.log('fetching by author');
+    const { data } = await api.fetchPostsByAuthor();
+    console.log(data);
+    dispatch({type: FETCH_BY_AUTHOR, payload: data })
   } catch (error) {
     
   }
@@ -22,7 +32,7 @@ export const createPost = (post) => async (dispatch) => {
     } catch (error) {
       console.log(error);
     }
-  };
+};
   
 export const updatePost = (id, updatedPost) => async (dispatch) => {
     try {

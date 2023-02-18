@@ -3,13 +3,16 @@ import { useDispatch } from 'react-redux';
 
 import { useSelector } from 'react-redux';
 import { getFilterItem } from '../../actions/displayItem';
+import { getPostsByAuthor } from '../../actions/posts';
 import ToggleImage from '../../reusable_Components/ToggleImage';
+import Cookies from 'js-cookie';
 import { detectWidth } from '../../reusable_Functions/detectScreenWidth';
 
 import './EditPageFilter.css';
 
 const EditPageFilter = () => {
     const dispatch = useDispatch();
+    const userEmail = Cookies.get('auth_email');
 
     const d = new Date();
     const currentYear = String(d.getFullYear());
@@ -78,6 +81,7 @@ const EditPageFilter = () => {
 
     useEffect(() => {
         dispatch(getFilterItem({selectedYear: selectYear, selectedMonth: selectMonth, selectedDate: formatSelectedDate(selectDate)}))
+        dispatch(getPostsByAuthor())
     },[window.innerWidth, selectYear, selectMonth, selectDate])
 
     addYearList(years);
@@ -102,7 +106,7 @@ const EditPageFilter = () => {
                 <label htmlFor="">Date Added: </label>
                 <select name="selectedDate" id="filter" value={selectDate} onChange={handleChange}>
                     {Array.from({ length: currentNumOfDays }, (_, index) => (
-                        <option value={index} key={index}>{index} </option>
+                        <option value={index + 1} key={index + 1}>{index + 1} </option>
                     ))} 
                 </select>
             </div>

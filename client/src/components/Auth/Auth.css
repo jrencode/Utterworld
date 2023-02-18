@@ -55,16 +55,17 @@ label {
 .form-button {
     width: 90%;
     display: block;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
     text-transform: capitalize;
-
-    background-color: var(--primary);
 }
 .form-button button {
+    width: 100%;
+    background-color: var(--primary);
+    padding: 0.5rem 1rem;
     color: var(--white);
     text-transform: uppercase;
     font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
     letter-spacing: 1px;
 }
 .google-login-button {
