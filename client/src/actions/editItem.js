@@ -1,4 +1,4 @@
-export const getEditItem = (item) => (dispatch) => {
-    const story = item;
+export const getEditItem = (selectedStory) => (dispatch) => {
+    const story = selectedStory;
     dispatch({ type: 'EDIT', payload: story})
 }

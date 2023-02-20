@@ -73,42 +73,66 @@ const Navbar = () => {
    },[dispatch, user?.token, location.pathname] );
 
    return (
-      <div className='navbar'>
-         <div className='nav-container'>
-            <div className='nav-left'>
-               <h1 className='brand'
-                  component={Link}
-                  to="/">
-                  <Link to="/">{brand} </Link>
-               </h1>
-               <div id="searchBar">
-                  <form method="get" action="">
-                        <input className='search' type="text" placeholder='Search Title' value={wordSearched} onChange={handleChange}/>
-                  </form>
-               </div>
-            </div>
-            
-            <ul className={menu ? 'nav-list active' : 'nav-list'}>
-               {navList.map(list => (
-                  <Link className='link' to={list.link} key={list.name} onClick={handleMenu}>
-                     <li to={list.link}>{list.name} </li>
-                  </Link>
-                  
-               ))}
-               {token ? <Dropdown className="link" handleMenu={handleMenu} loginEmail={loginEmail} logout={logout}/> : ''}
-               
-               { token ? ''  : <Link className='link' to="/auth"> <li>Login</li> </Link> }
-               
-            </ul>
-            
-            
-            <div className='menubar' onClick={handleMenu}>
-               <div className={menu ? 'line lineOne active' : 'line lineOne'} ></div>
-               <div className={menu ? 'line lineTwo hide' : 'line lineOne'}></div>
-               <div className={menu ? 'line lineThree active' : 'line lineOne'}></div>
-            </div>
+     <div className="navbar">
+       <div className="nav-container">
+         <div className="nav-left">
+           <h1 className="brand" component={Link} to="/">
+             <Link to="/">{brand} </Link>
+           </h1>
+           <div id="searchBar">
+             <form method="get" action="">
+               <input
+                 className="search"
+                 type="text"
+                 placeholder="Search Title"
+                 value={wordSearched}
+                 onChange={handleChange}
+               />
+             </form>
+           </div>
          </div>
-      </div>
+
+         <ul className={menu ? "nav-list active" : "nav-list"}>
+           {navList.map((list) => (
+             <Link
+               className="link"
+               to={list.link}
+               key={list.name}
+               onClick={handleMenu}
+             >
+               <li to={list.link}>{list.name} </li>
+             </Link>
+           ))}
+           {token ? (
+             <Dropdown
+               className="link"
+               handleMenu={handleMenu}
+               loginEmail={loginEmail}
+               logout={logout}
+             />
+           ) : (
+             ""
+           )}
+
+           {token ? (
+             ""
+           ) : (
+             <Link className="link" to="/auth" onClick={() => handleMenu()}>
+               {" "}
+               <li>Login</li>{" "}
+             </Link>
+           )}
+         </ul>
+
+         <div className="menubar" onClick={handleMenu}>
+           <div className={menu ? "line lineOne active" : "line lineOne"}></div>
+           <div className={menu ? "line lineTwo hide" : "line lineOne"}></div>
+           <div
+             className={menu ? "line lineThree active" : "line lineOne"}
+           ></div>
+         </div>
+       </div>
+     </div>
    )
 }
 

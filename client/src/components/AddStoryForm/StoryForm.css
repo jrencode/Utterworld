@@ -33,11 +33,14 @@
     font-size: 0.75rem;
     color: var(--gray2);
 }
-.story-form input {
+.story-form input:not([type="file"]) {
     border-bottom: 1px solid var(--gray1);
     width: 100%;
     padding: 5px 10px;
     margin-bottom: 1rem;
+}
+.story-form input[type="file"] {
+    color: var(--gray2);
 }
 .story-form textarea {
     width: 100%;
@@ -45,6 +48,10 @@
     border-radius: 10px;
     padding: 10px;
 }
+.filebase {
+    padding: 0;
+}
+
 .story-form-buttons {
     width: 100%;
     display: flex;
@@ -67,4 +74,20 @@
     padding: 10px 25px;
     background-color: var(--gray1);
     border-radius: 10px;
+}
+.post-body {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+.quill {
+    border-radius: 5px;
+}
+.quillEditor-container {
+    width: 100%;
+    height: 70%;
+}
+.quill {
+    margin: 1.5rem 0;
+    width: 100%;
+    height: 30vh;
 }

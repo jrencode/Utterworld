@@ -67,9 +67,18 @@ export const deletePost = async (req, res) => {
 
    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-   await PostMessage.findByIdAndRemove(id);
+   const existingPost = await PostMessage.findById(id);
+   console.log(req.userId);
 
-   res.json({ message: "Post deleted successfully." });
+   if (existingPost.authorId !== req.userId) {
+      return res.status(400).send('You do not have permission to delete this post.');
+   } else {
+      await PostMessage.findByIdAndRemove(id);
+
+      res.json({ message: "Post deleted successfully." });
+   }
+
+   
 }
 
 export default router

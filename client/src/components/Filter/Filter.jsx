@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getShuffleItem, getSortByDateItem } from '../../actions/displayItem';
+
+import {FiShuffle} from "react-icons/fa";
 import './Filter.css'
 
 const Filter = () => {
@@ -32,7 +34,10 @@ const Filter = () => {
         <div className='filter-container'>
             <div className="left-filter">
                 <button className='sortBtn' onClick={() => sortPosts()}>Sort</button>
-                <button className='shuffleBtn' onClick={() => shufflePosts()}>Shuffle</button>
+                
+                <button className='shuffleBtn' onClick={() => shufflePosts()}>
+                  Shuffle
+                </button>
             </div>
             <div className="right-filter">
                 <h5>Category</h5>

@@ -42,7 +42,7 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
       console.log(updatedPost);
 
 
-      await dispatch({ type: UPDATE, payload: updatedPost });
+      dispatch({ type: UPDATE, payload: updatedPost });
         
     } catch (error) {
       console.log(error);
@@ -52,10 +52,10 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     const {data} = await api.deletePost(id);
+    console.log(data);
 
-    if (data) {
-      dispatch({type: DELETE, payload: id})
-    }
+    dispatch({type: DELETE, payload: id})
+
     
   } catch (error) {
     console.log(error);
